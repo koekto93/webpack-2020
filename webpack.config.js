@@ -50,6 +50,7 @@ const cssLoaders = extra => {
   return loaders
 }
 
+//выставление опций babel для ts, js, jsx ...
 const babelOptions = preset => {
   const opts = {
     presets: [
