@@ -16,7 +16,7 @@ const optimization = () => {
       chunks: 'all'
     }
   }
-
+  //перезаписываем поле minimizer для оптимизации css, js и html для продакшен сборки. 
   if (isProd) {
     config.minimizer = [
       new OptimizeCssAssetWebpackPlugin(),
@@ -27,14 +27,16 @@ const optimization = () => {
   return config
 }
 
+//если девелоп сборка, то файлы будут без хеша, если прод, то добавится хеш для исключения кеширования
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
+//оптимизация задания лоадеров для css(less, sass и т.д)
 const cssLoaders = extra => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
-        hmr: isDev,
+        hmr: isDev, //hot module replacement
         reloadAll: true
       },
     },
@@ -127,7 +129,7 @@ module.exports = {
   optimization: optimization(),
   devServer: {
     port: 4200,
-    hot: isDev
+    hot: isDev //hot module replacement
   },
   devtool: isDev ? 'source-map' : '',
   plugins: plugins(),
